@@ -1,0 +1,259 @@
+.home-header-container {
+  box-shadow: 0px 0px 16px #C0C0C0;
+  height: 60px;
+  width: 100%;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  background-color: #e8f2f7;
+  z-index: 1200 !important;
+
+  .home-header-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .left-content {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      .header-logo {
+        background: url("../../assets/images/logo.png") left center no-repeat;
+        height: 48px;
+            width: 152px;
+        cursor: pointer;
+        // transform: scale(0.5, 0.5);
+        // margin-left: -56px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      i {
+        font-size: 25px;
+        color: grey;
+        cursor: pointer;
+      }
+    }
+    .center-content {
+      display: flex;
+      width: 60%;
+    }
+    
+    .child-content {
+      position: relative;
+      margin-right: 34px; /* Khoảng cách giữa các mục menu */
+      margin-top: 20px;
+      cursor: pointer;
+
+      &:hover {
+        b{
+          color: #49bce2;
+        }
+      }
+    }
+    
+    .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 200px; /* Độ rộng của menu dropdown */
+      background-color: #fff; /* Màu nền của menu dropdown */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+      z-index: 1;
+    }
+    
+    .child-content:hover .sub-menu {
+      display: block; /* Hiển thị menu khi hover vào mục cha */
+    }
+    
+    /* Các mục menu con */
+    .sub-menu-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc; /* Đường viền giữa các mục menu */
+    
+      &:last-child {
+        border-bottom: none; /* Ẩn đường viền của mục cuối cùng */
+      }
+    }
+    
+    .right-content {
+      width: 25%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .dropdown {
+        display: flex;
+        align-items: center;
+      }
+      
+      .support {
+        position: relative;
+        padding-right: 50px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      
+        i {
+          font-size: 15px;
+          margin-right: 5px;
+        }
+      
+        &:hover {
+          .language-dropdown {
+            display: flex;
+            width: 100px;
+            border-radius: 5px;
+          }
+        }
+      }
+      
+      .language-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        flex-direction: column; // Hiển thị theo cột
+      
+        .language-vi,
+        .language-en {
+          opacity: 0.2;
+          cursor: pointer;
+      
+          &.active {
+            opacity: 1;
+            span {
+              color: #49bce2; // Màu chữ khi active
+            }
+          }
+      
+          &:hover {
+            opacity: 1;
+          }
+      
+          span {
+            padding: 5px;
+          }
+      
+          &:not(:last-child) {
+            margin-bottom: 10px; // Khoảng cách giữa các ngôn ngữ
+          }
+        }
+      }
+    }      
+  }
+}
+
+.home-header-banner {
+  background-image: url("../../assets//images/877df3a6-926a-4146-8123-936a79e1eaa7-background_banner.jpg");
+  height: 485px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  background-position: bottom;
+  justify-content: space-around;
+
+  .content-up {
+    height: 100%;
+    padding-top: 15px;
+    .title1 {
+      text-align: center;
+      font-size: 45px;
+      color: #1da1f2;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .title2 {
+      color: #003553;
+      text-shadow: 0 4px 4px rgba(104,125,199,.2);
+      font-size: 36px;
+      font-weight: 700;
+    }
+    
+  }
+  .search {
+    position: relative !important;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 25px;
+    background: white;
+    bottom: 100px;
+    box-shadow: 4px 8px 30px 0 rgba(177,196,218,.35);
+
+    i {
+      margin: 0 5px;
+    }
+    input {
+      height: 30px;
+      width: 360px;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+  }
+  .content-down {
+    height: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 1)
+    );
+    padding-bottom: 10px;
+    .options {
+      text-align: center;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      .option-child {
+        width: 100px;
+        .icon-child {
+          background: white;
+          width: 40px;
+          height: 40px;
+          padding: 10px;
+          border-radius: 50%;
+          text-align: center;
+          margin: 0 auto;
+
+          i {
+            color: #49bce2;
+            font-size: 20px;
+          }
+        }
+
+        .text-child {
+          font-size: 17px;
+          font-weight: 500;
+          cursor: pointer;
+
+          &:hover {
+            color: #49bce2;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.avatar-profile {
+  min-height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
