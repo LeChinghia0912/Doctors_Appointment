@@ -22,14 +22,16 @@ class DetailSpecialty extends Component {
     }
 
     async componentDidMount() {
+        // kiểm tra tham số
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
 
             let res = await getAllSpecialtyById({
+                // gọi API và truyền vào
                 id: id,
                 location: 'ALL',
             });
-            let resProvince = await getAllCodeService('PROVINCE');
+            let resProvince = await getAllCodeService('PROVINCE'); // lấy dữ liệu trả về của province
             if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
                 let data = res.data;
                 let arrDoctorId = [];
@@ -37,7 +39,7 @@ class DetailSpecialty extends Component {
                     let arr = data.doctorSpecialty;
                     if (arr && arr.length > 0) {
                         arr.map((item) => {
-                            arrDoctorId.push(item.doctorId);
+                            arrDoctorId.push(item.doctorId); // build again array doctor
                         });
                     }
                 }
@@ -46,6 +48,7 @@ class DetailSpecialty extends Component {
 
                 if (dataProvince && dataProvince.length > 0) {
                     dataProvince.unshift({
+                        //unshift đẩy lên làm phần tử đầu tiên
                         createdAt: null,
                         keyMap: 'ALL',
                         type: 'PROVINCE',
@@ -54,6 +57,7 @@ class DetailSpecialty extends Component {
                     });
                 }
 
+                // setState lại sau khi tạo xong
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrDoctorId: arrDoctorId,
@@ -68,6 +72,7 @@ class DetailSpecialty extends Component {
         if (this.props.language !== prevProps.language) {
         }
     }
+
     handleOnChangeSelect = async (event) => {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
@@ -75,9 +80,10 @@ class DetailSpecialty extends Component {
 
             let res = await getAllSpecialtyById({
                 id: id,
-                location: location,
+                location: location, //truyền location
             });
 
+            // sau khi lấy được location
             if (res && res.errCode === 0) {
                 let data = res.data;
                 let arrDoctorId = [];
@@ -89,7 +95,7 @@ class DetailSpecialty extends Component {
                         });
                     }
                 }
-
+                // build data và gán ngược lại cho state
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrDoctorId: arrDoctorId,
@@ -107,6 +113,7 @@ class DetailSpecialty extends Component {
                 <div className="detail-specialty-body">
                     <div className="description-specialty">
                         {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                            // Lấy descript
                             <div //neu khong co thuoc tinh nay se in ra noi dung HTML
                                 dangerouslySetInnerHTML={{
                                     __html: dataDetailSpecialty.descriptionHTML,
@@ -114,6 +121,7 @@ class DetailSpecialty extends Component {
                             ></div>
                         )}
                     </div>
+                    {/* tìm kiếm bác sĩ theo tỉnh */}
                     <div className="search-sp-doctor">
                         <select onChange={(event) => this.handleOnChangeSelect(event)}>
                             {listProvince &&

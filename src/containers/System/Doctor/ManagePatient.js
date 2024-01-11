@@ -35,6 +35,7 @@ class ManagePatient extends Component {
     }
 
     getDataPatient = async () => {
+        //gán giá trị data vào state
         let { user } = this.props;
         let { currentDate } = this.state;
         let formatedDate = new Date(currentDate).getTime();
@@ -44,6 +45,7 @@ class ManagePatient extends Component {
                 date: formatedDate,
             });
             if (res && res.errCode === 0) {
+                //nếu có data thực hiện cập nhật lại state
                 this.setState({
                     dataPatient: res.data,
                 });
@@ -136,12 +138,7 @@ class ManagePatient extends Component {
 
         let totalCostData = null;
         let specialtyIdData = null;
-        if (
-            this.props.user &&
-            this.props.user.Doctor_Infor &&
-            this.props.user.Doctor_Infor.priceTypeData &&
-            this.props.user.Doctor_Infor.priceTypeData.valueEn
-        ) {
+        if (this.props.user && this.props.user.Doctor_Infor && this.props.user.Doctor_Infor.priceTypeData && this.props.user.Doctor_Infor.priceTypeData.valueEn) {
             totalCostData = this.props.user.Doctor_Infor.priceTypeData.valueEn;
         }
         if (this.props.user && this.props.user.Doctor_Infor && this.props.user.Doctor_Infor.specialtyId) {
@@ -254,22 +251,13 @@ class ManagePatient extends Component {
     };
 
     render() {
-        let { dataPatient, isOpenRemedyModal, isOpenCreateImageRemedyModal, dataModal, dataModalCreateRemedy } =
-            this.state;
+        let { dataPatient, isOpenRemedyModal, isOpenCreateImageRemedyModal, dataModal, dataModalCreateRemedy } = this.state;
         let { language } = this.props;
 
         return (
             <>
-                <LoadingOverlay
-                    active={this.state.isShowLoading}
-                    spinner={<ClimbingBoxLoader color={'#86e7d4'} size={15} />}
-                >
-                    <RemedyModal
-                        isOpenModal={isOpenRemedyModal}
-                        dataModal={dataModal}
-                        closeRemedyModal={this.closeRemedyModal}
-                        sendRemedy={this.sendRemedy}
-                    />
+                <LoadingOverlay active={this.state.isShowLoading} spinner={<ClimbingBoxLoader color={'#86e7d4'} size={15} />}>
+                    <RemedyModal isOpenModal={isOpenRemedyModal} dataModal={dataModal} closeRemedyModal={this.closeRemedyModal} sendRemedy={this.sendRemedy} />
 
                     <div className="manage-patient-container">
                         <div className="m-p-title font-weight-bold">
@@ -280,11 +268,7 @@ class ManagePatient extends Component {
                                 <label>
                                     <FormattedMessage id={'manage-patient.choose-date'} />
                                 </label>
-                                <DatePicker
-                                    onChange={this.handleOnChangeDatePicker}
-                                    className="form-control"
-                                    value={this.state.currentDate}
-                                />
+                                <DatePicker onChange={this.handleOnChangeDatePicker} className="form-control" value={this.state.currentDate} />
                             </div>
                             <div className="col-12 table-manage-patient">
                                 <table>
@@ -318,27 +302,15 @@ class ManagePatient extends Component {
                                         </tr>
                                         {dataPatient && dataPatient.length > 0 ? (
                                             dataPatient.map((item, index) => {
-                                                let time =
-                                                    language === LANGUAGES.VI
-                                                        ? item.timeTypeDataPatient.valueVi
-                                                        : item.timeTypeDataPatient.valueEn;
-                                                let gender =
-                                                    language === LANGUAGES.VI
-                                                        ? item.patientGender === 'M'
-                                                            ? 'Nam'
-                                                            : 'Nữ'
-                                                        : item.patientGender === 'M'
-                                                        ? 'Male'
-                                                        : 'Female';
+                                                let time = language === LANGUAGES.VI ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn;
+                                                let gender = language === LANGUAGES.VI ? (item.patientGender === 'M' ? 'Nam' : 'Nữ') : item.patientGender === 'M' ? 'Male' : 'Female';
                                                 return (
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{time}</td>
                                                         <td>{item.patientName}</td>
                                                         <td>{item.patientAddress}</td>
-                                                        <td>
-                                                            {item.patientPhoneNumber ? item.patientPhoneNumber : ''}
-                                                        </td>
+                                                        <td>{item.patientPhoneNumber ? item.patientPhoneNumber : ''}</td>
                                                         <td>{gender}</td>
                                                         <td>{item.patientReason}</td>
                                                         <td>
@@ -353,26 +325,13 @@ class ManagePatient extends Component {
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <button
-                                                                className="btn btn-primary"
-                                                                onClick={() => this.handleBtnConfirm(item)}
-                                                            >
-                                                                <FormattedMessage
-                                                                    id={'manage-patient.send-prescriptions'}
-                                                                />
+                                                            <button className="btn btn-primary" onClick={() => this.handleBtnConfirm(item)}>
+                                                                <FormattedMessage id={'manage-patient.send-prescriptions'} />
                                                             </button>
-                                                            <button
-                                                                className="btn btn-info mx-5"
-                                                                onClick={() => this.handleBtnCreateRemedy(item)}
-                                                            >
-                                                                <FormattedMessage
-                                                                    id={'manage-patient.create-prescriptions'}
-                                                                />
+                                                            <button className="btn btn-info mx-5" onClick={() => this.handleBtnCreateRemedy(item)}>
+                                                                <FormattedMessage id={'manage-patient.create-prescriptions'} />
                                                             </button>
-                                                            <button
-                                                                className="btn btn-danger"
-                                                                onClick={() => this.handleBtnCancel(item)}
-                                                            >
+                                                            <button className="btn btn-danger" onClick={() => this.handleBtnCancel(item)}>
                                                                 <FormattedMessage id={'manage-patient.cancel'} />
                                                             </button>
                                                         </td>
@@ -382,9 +341,7 @@ class ManagePatient extends Component {
                                         ) : (
                                             <tr>
                                                 <td colSpan="9" style={{ textAlign: 'center' }}>
-                                                    {language === LANGUAGES.VI
-                                                        ? 'Không có bệnh nhân đặt lịch vào ngày này'
-                                                        : 'No patients booked for this date'}
+                                                    {language === LANGUAGES.VI ? 'Không có bệnh nhân đặt lịch vào ngày này' : 'No patients booked for this date'}
                                                 </td>
                                             </tr>
                                         )}
@@ -394,12 +351,7 @@ class ManagePatient extends Component {
                         </div>
                     </div>
 
-                    {this.state.isOpen === true && (
-                        <Lightbox
-                            mainSrc={this.state.previewImgURL}
-                            onCloseRequest={() => this.setState({ isOpen: false })}
-                        />
-                    )}
+                    {this.state.isOpen === true && <Lightbox mainSrc={this.state.previewImgURL} onCloseRequest={() => this.setState({ isOpen: false })} />}
                 </LoadingOverlay>
             </>
         );

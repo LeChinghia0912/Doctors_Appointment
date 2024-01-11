@@ -46,7 +46,7 @@ class ManageDoctor extends Component {
             selectedPayment: '',
             selectedProvice: '',
             selectedClinic: '',
-            selectedSpecialty: '',
+            selectedSpecialty: '', // xem chuyên khoa nào đang được chọn
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -195,8 +195,9 @@ class ManageDoctor extends Component {
         });
     };
 
-    // chọn bác sĩ
+    // chọn bác sĩ / thay đổi
     handleChangeSelect = async (selectedOption) => {
+        // selectedOptionsử dụng để cập nhật trạng thái của thành phần.
         this.setState({ selectedOption });
         let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state;
         let res = await getDetailInforDoctor(selectedOption.value);
@@ -244,6 +245,7 @@ class ManageDoctor extends Component {
                     return item && item.value === clinicId;
                 });
             }
+            //this.setState cập nhật trạng thái
             this.setState({
                 contentHTML: markdown.contentHTML,
                 contentMarkdown: markdown.contentMarkdown,

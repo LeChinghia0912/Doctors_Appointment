@@ -362,7 +362,7 @@ export const fetchAllScheduleTime = () => {
         }
     };
 };
-
+// Lấy thông tin bác sĩ cần thiết
 export const getRequiredDoctorInfor = () => {
     return async (dispatch, getState) => {
         try {
